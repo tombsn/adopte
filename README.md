@@ -1,19 +1,17 @@
 # nw-groupe
 
-**Contexte**
-- J'ai immaginé une API qui pourrait permettre à un opérateur de connaître la liste de ses clients, des batteries, et quel client aurait en location une ou des batteries.
+**Point de situation**
+- Un utilisateur peut se créer un compte
+- Un utilisateur peut se créer un compte
+- Un Cron vérifie les dates d'abonnements
+- L'admin peut lister ses utilisateurs et les achats
 
-**Objectif**
-
-- API permettant des opérations CRUD
-
-- Ce rendu nous met à la place d'un administrateur pour la gestion des clients inscrits et de leurs données (données de compte, batteries qu'ils possèdent)
-- La suite pourrait être de developper une partie ouverte afin de délester la charge de travail de l'administrateur (automatiser les locations et donc les update par exemple)
+**A Faire par la suite**
+- Mettre en place l'api externe pour lier les achats et le paiment réel
 
 **Avant de lancer le projet : **
 - Cloner le repository
 - Effectuer un npm i pour installer les dépendances
-- Créer une base de données PostgreSQL
 - Selon les besoins, modifier la configuration de la base dans le fichier 'config/db.config.js'
 
 **Au lancement du projet**
@@ -26,12 +24,21 @@
 **Dans le dossier "routes"**
 - Un fichier 'route.js' qui centralise le découpage de toutes les routes en fichiers spécifiques
 - Un fichier 'user.route.js' où sont placées les routes qui tiennent du model User
-- Un fichier 'battery.route.js' où sont placées les routes qui tiennent du model Battery
+- Un fichier 'transaction.route.js' où sont placées les routes qui tiennent du model Transaction
 
 **Pour accéder aux routes**
 Dans Postman, se placer à la racine **http://localhost:5000/api**
 - **http://localhost:5000/api/user** pour l'accès aux routes User 
-- **http://localhost:5000/api/battery** pour l'accès aux routes Battery
+- **http://localhost:5000/api/transaction** pour l'accès aux routes Transaction
+
+**Route "principales"**
+- **http://localhost:5000/api/transaction/total-sum** en GET pour l'accès aux routes Transaction en tant qu'admin avec le json suivant :
+      {
+          "start_date" : "2023-08-14",
+          "end_date" : "2023-10-23"
+      }
+
+- Une vérification de l'administration étant en place, veuillez copier le token reçu lors de la connexion et le mettre en Bearer Auth sur Postman pour les routes concernées.
 
 **IMPORTANT**
 - Lors de la création du premier USER. Modifier son rôle en base dans la table "user" de "USER" à "ADMIN"
@@ -43,12 +50,16 @@ Dans Postman, se placer à la racine **http://localhost:5000/api**
     "birthdate": "10/02/1996",
     "email": "test@gmail.com",
     "password": "123456789",
-    "phoneNumber": "0761362490"
+    "cvv": "354",
+    "card_number": "1234567891234567"
 }
 
-**Exemple de JSON pour l'ajout d'une batterie**
+**Exemple de JSON pour l'ajout d'une transaction**
+- Se connecter via Postman puis meffectuer le JSON suivant :
 {
-    "name":"Batterie 418",
-    "city": "Annecy",
-    "UserId" : 5
+    "amount": float,
+    "type_subscription: "15" / "30" / "45"
 }
+
+**SUM Total des transactions**
+
