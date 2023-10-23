@@ -40,6 +40,8 @@ Dans Postman, se placer à la racine **http://localhost:5000/api**
           "end_date" : "2023-10-23"
       }
 
+  - 
+
 - Une vérification de l'administration étant en place, veuillez copier le token reçu lors de la connexion et le mettre en Bearer Auth sur Postman pour les routes concernées.
 
 **IMPORTANT**
@@ -60,7 +62,7 @@ Dans Postman, se placer à la racine **http://localhost:5000/api**
 - Se connecter via Postman puis meffectuer le JSON suivant :
 {
     "amount": float,
-    "type_subscription: "15" / "30" / "45"
+    "type_subscription": "15" / "30" / "45"
 }
 
 **SUM Total des transactions**
