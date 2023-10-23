@@ -8,6 +8,8 @@
 
 **A Faire par la suite**
 - Mettre en place l'api externe pour lier les achats et le paiment réel
+- Un Front pour lister les Users et leurs achats facilement
+- Un Front afin de vérifier le CA facilement
 
 **Avant de lancer le projet : **
 - Cloner le repository
