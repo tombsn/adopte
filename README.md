@@ -1,4 +1,4 @@
-# nw-groupe
+# Adopte
 
 **Point de situation**
 - Un utilisateur peut se créer un compte
