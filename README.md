@@ -40,7 +40,7 @@ Dans Postman, se placer à la racine **http://localhost:5000/api**
           "end_date" : "2023-10-23"
       }
 
-  - 
+  - **http://localhost:5000/api/user** en GET et connecté en tant qu'ADMIN pour accéder à la liste des utilisateurs et leurs achats
 
 - Une vérification de l'administration étant en place, veuillez copier le token reçu lors de la connexion et le mettre en Bearer Auth sur Postman pour les routes concernées.
 
@@ -59,11 +59,8 @@ Dans Postman, se placer à la racine **http://localhost:5000/api**
 }
 
 **Exemple de JSON pour l'ajout d'une transaction**
-- Se connecter via Postman puis meffectuer le JSON suivant :
+- Se connecter via Postman puis effectuer le JSON suivant :
 {
     "amount": float,
     "type_subscription": "15" / "30" / "45"
 }
-
-**SUM Total des transactions**
-
