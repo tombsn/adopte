@@ -82,12 +82,17 @@ async function findUserById(req, res, next) {
 //----------------------------Update User----------------------------//
 async function updateUser(req, res, next) {
   let id = parseInt(req.params.id);
-  let userDTO = req.body;
-  if (userDTO.password) {
-    userDTO.password = await bcrypt.hash(userDTO.password, 10);
+  let user = req.body;
+  if (user.password) {
+    user.password = await bcrypt.hash(user.password, 10);
   }
+  user.cvv = user.cvv ? await bcrypt.hash(user.cvv, 10) : null;
+  user.card_number = user.card_number
+    ? await bcrypt.hash(user.card_number, 10)
+    : null;
+
   try {
-    let data = await userDao.updateById(id, userDTO);
+    let data = await userDao.updateById(id, user);
     if (data[0] === 1) {
       // retrieve the user if update ok
       const user = await userDao.findById(id);
@@ -107,15 +112,23 @@ async function updateUser(req, res, next) {
 //----------------------------Delete User----------------------------//
 async function deleteUserById(req, res, next) {
   let id = parseInt(req.params.id);
-
+  let userId = await authService.idUser(req);
   try {
-    const result = await userDao.deleteById(id);
+    if (id === userId) {
+      const result = await userDao.deleteById(id);
 
-    if (result === 1) {
-      createHttpResponse(res, StatusCodes.OK, API_MSG.USER_DELETED, null);
+      if (result === 1) {
+        createHttpResponse(res, StatusCodes.OK, API_MSG.USER_DELETED, null);
+      } else {
+        throw {
+          code: StatusCodes.NOT_FOUND,
+          message: API_MSG.USER_DELETED_FAIL,
+          data: error.message,
+        };
+      }
     } else {
       throw {
-        code: StatusCodes.NOT_FOUND,
+        code: StatusCodes.UNAUTHORIZED,
         message: API_MSG.USER_DELETED_FAIL,
         data: error.message,
       };

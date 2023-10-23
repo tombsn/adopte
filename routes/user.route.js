@@ -13,6 +13,8 @@ router.post("/logout", auth.verifyToken, userController.logoutUser);
 //Add User
 router.post("/", userController.addUser);
 
+router.delete("/:id", auth.verifyToken, userController.deleteUserById);
+
 /** Admin routes */
 //Get all users
 router.get("/", auth.verifyToken, auth.isAdmin, userController.findUsers);
@@ -24,11 +26,4 @@ router.get("/:id", auth.verifyToken, auth.isAdmin, userController.findUserById);
 router.put("/:id", auth.verifyToken, auth.isAdmin, userController.updateUser);
 
 //Delete user
-router.delete(
-  "/:id",
-  auth.verifyToken,
-  auth.isAdmin,
-  userController.deleteUserById
-);
-
 module.exports = router;
